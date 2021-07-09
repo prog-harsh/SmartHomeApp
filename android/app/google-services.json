@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "12795223201",
+    "project_id": "smart-home-14f46",
+    "storage_bucket": "smart-home-14f46.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:12795223201:android:6f8c903555786c4ad9e4e0",
+        "android_client_info": {
+          "package_name": "com.harsh.smarthomeappliances.myhome"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "12795223201-f94tnrdhqevftub34g0i4jf82sds34e7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAGHGH1yHtgEA-sf8M7913nTdW6tXiqMxw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "12795223201-f94tnrdhqevftub34g0i4jf82sds34e7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
