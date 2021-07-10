@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:myhome/room_screen.dart';
-import 'homepage.dart';
+import 'screens/homepage.dart';
+import 'screens/bedroom_screen.dart';
+import 'screens/bathroom_screen.dart';
+import 'screens/livingroom_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -14,11 +16,14 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.pink,
+        primarySwatch: Colors.blue,
+        fontFamily: 'Ubuntu',
       ),
       routes: {
         '/': (ctx) => HomePage(),
-        'room-screen': (ctx) => RoomScreen(),
+        'bedroom-screen': (ctx) => BedRoomScreen(),
+        'bathroom-screen': (ctx) => BathRoomScreen(),
+        'livingroom-screen': (ctx) => LivingRoomScreen(),
       },
     );
   }
