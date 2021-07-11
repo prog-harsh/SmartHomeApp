@@ -9,9 +9,6 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Color.fromRGBO(249, 249, 245, 1),
-        // appBar: AppBar(
-        //   title: Text('MyHome'),
-        // ),
         body: Container(
           decoration: BoxDecoration(
             image: DecorationImage(
@@ -23,12 +20,11 @@ class HomePage extends StatelessWidget {
           ),
           child: SafeArea(
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Container(
                   alignment: Alignment.centerLeft,
-                  margin: const EdgeInsets.only(top: 10, left: 25),
-                  //color: Colors.black,
-                  //  height: MediaQuery.of(context).size.height * 0.1,
+                  margin: const EdgeInsets.only(top: 20, left: 25),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -44,18 +40,16 @@ class HomePage extends StatelessWidget {
                     ],
                   ),
                 ),
+                // SizedBox(
+                //   height: MediaQuery.of(context).size.height * 0.01,
+                // ),
                 Container(
-                  margin: const EdgeInsets.only(top: 30),
+                  margin: const EdgeInsets.only(top: 20),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Row(
                         children: [
-                          // Icon(
-                          //   Icons.thermostat,
-                          //   color: Colors.blue,
-                          //   size: 50,
-                          // ),
                           Image(
                             height: 47,
                             image: AssetImage('images/thermometer.png'),
@@ -76,11 +70,6 @@ class HomePage extends StatelessWidget {
                       ),
                       Row(
                         children: [
-                          // Icon(
-                          //   Icons.water_damage,
-                          //   color: Colors.blue,
-                          //   size: 50,
-                          // ),
                           Image(
                             height: 47,
                             image: AssetImage('images/humidity.png'),
@@ -102,8 +91,9 @@ class HomePage extends StatelessWidget {
                     ],
                   ),
                 ),
+
                 Container(
-                  margin: const EdgeInsets.only(top: 30),
+                  margin: const EdgeInsets.only(top: 20),
                   height: MediaQuery.of(context).size.height * 0.55,
                   child: ListView(
                     padding: const EdgeInsets.all(8.0),
@@ -116,10 +106,9 @@ class HomePage extends StatelessWidget {
                     ],
                   ),
                 ),
+
                 Container(
-                  margin: const EdgeInsets.only(
-                    top: 15,
-                  ),
+                  margin: const EdgeInsets.only(top: 15),
                   child: ElevatedButton(
                     onPressed: () {},
                     child: Text('SHOW REALTIME DATA'),
