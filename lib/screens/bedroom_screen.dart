@@ -34,7 +34,8 @@ class _BedRoomScreenState extends State<BedRoomScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Bedroom'),
+        leadingWidth: 30,
+        title: Text('Bedroom',style: TextStyle(fontWeight: FontWeight.bold),),
       ),
       body: SafeArea(
         child: Column(
