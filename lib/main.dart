@@ -3,8 +3,11 @@ import 'screens/homepage.dart';
 import 'screens/bedroom_screen.dart';
 import 'screens/bathroom_screen.dart';
 import 'screens/livingroom_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 

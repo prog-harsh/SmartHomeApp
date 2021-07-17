@@ -7,15 +7,17 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ImageProvider background = AssetImage('images/home2.jpg');
+    ImageProvider bedroom = AssetImage('images/bed.jpg');
+    ImageProvider livingroom = AssetImage('images/living.jpg');
+    ImageProvider bathroom = AssetImage('images/bathroom.jpg');
     return Scaffold(
         backgroundColor: Color.fromRGBO(249, 249, 245, 1),
         body: Container(
           decoration: BoxDecoration(
             image: DecorationImage(
               fit: BoxFit.cover,
-              image: AssetImage(
-                'images/home2.jpg',
-              ),
+              image: background,
             ),
           ),
           child: SafeArea(
@@ -96,13 +98,15 @@ class HomePage extends StatelessWidget {
                   margin: const EdgeInsets.only(top: 20),
                   height: MediaQuery.of(context).size.height * 0.55,
                   child: ListView(
+                    physics: BouncingScrollPhysics(
+                        parent: AlwaysScrollableScrollPhysics()),
                     padding: const EdgeInsets.all(8.0),
                     shrinkWrap: false,
                     scrollDirection: Axis.horizontal,
                     children: [
-                      cardUI('images/bed.jpg', 'BEDROOM', context),
-                      cardUI('images/bathroom.jpg', 'BATHROOM', context),
-                      cardUI('images/living.jpg', 'LIVING ROOM', context),
+                      cardUI(bedroom, 'BEDROOM', context),
+                      cardUI(bathroom, 'BATHROOM', context),
+                      cardUI(livingroom, 'LIVING ROOM', context),
                     ],
                   ),
                 ),
@@ -120,7 +124,7 @@ class HomePage extends StatelessWidget {
         ));
   }
 
-  Widget cardUI(String imgUrl, String roomName, BuildContext context) {
+  Widget cardUI(ImageProvider imgUrl, String roomName, BuildContext context) {
     return InkWell(
       splashColor: Colors.blue,
       onTap: () {
@@ -136,14 +140,23 @@ class HomePage extends StatelessWidget {
         margin: const EdgeInsets.only(right: 10),
         width: MediaQuery.of(context).size.width * 0.75,
         child: Card(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(35),
+          ),
           elevation: 8,
           child: Stack(fit: StackFit.expand, children: [
-            Image(
-              image: AssetImage(imgUrl),
-              fit: BoxFit.cover,
+            ClipRRect(
+              borderRadius: BorderRadius.circular(35),
+              child: Image(
+                image: imgUrl,
+                fit: BoxFit.cover,
+              ),
             ),
             Container(
-              color: Colors.black45,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(35),
+                color: Colors.black45,
+              ),
               alignment: Alignment.center,
               child: Text(
                 roomName,

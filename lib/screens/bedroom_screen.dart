@@ -10,27 +10,32 @@ class BedRoomScreen extends StatefulWidget {
 }
 
 class _BedRoomScreenState extends State<BedRoomScreen> {
-  var val = 0;
+  var hum = 0, temp = 0, ac, fan, lights, tv;
+  late DatabaseReference databaseReference;
   void initState() {
     super.initState();
-    // if (!mounted) {
-    //   return;
-    // }
-    DatabaseReference databaseReference = FirebaseDatabase.instance.reference();
+    databaseReference = FirebaseDatabase.instance.reference();
     databaseReference.child('bedroom').onValue.listen((event) {
       var snap = event.snapshot;
       if (mounted) {
         setState(() {
-          val = snap.value['humidity'];
+          temp = snap.value['temperature'];
+          hum = snap.value['humidity'];
+          ac = snap.value['ac'];
+          fan = snap.value['fan'];
+          lights = snap.value['lights'];
+          tv = snap.value['tv'];
         });
       }
-      print(val);
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('Bedroom'),
+      ),
       body: SafeArea(
         child: Column(
           children: [
@@ -42,81 +47,173 @@ class _BedRoomScreenState extends State<BedRoomScreen> {
                   fontSize: 19,
                   fontWeight: FontWeight.w700,
                   color: Colors.blue,
-                  //backgroundColor: Colors.red,
                 ),
               ),
             ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Column(
+                  children: [
+                    CircularPercentIndicator(
+                      animation: true,
+                      animationDuration: 1000,
+                      radius: 89.0,
+                      lineWidth: 9.0,
+                      curve: Curves.slowMiddle,
+                      percent: temp.toDouble() / 100,
+                      center: new Text("$temp°C"),
+                      linearGradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        colors: [
+                          Colors.blue.shade200,
+                          Colors.blue.shade500,
+                          Colors.blueAccent.shade400,
+                          Colors.lightBlue.shade500,
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    Text('Temperature'),
+                  ],
+                ),
+                Column(
+                  children: [
+                    CircularPercentIndicator(
+                      animation: true,
+                      animationDuration: 1000,
+                      radius: 85.0,
+                      lineWidth: 8.0,
+                      curve: Curves.slowMiddle,
+                      percent: hum.toDouble() / 100,
+                      center: new Text("$hum%"),
+                      linearGradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        colors: [
+                          Colors.blue.shade200,
+                          Colors.blue.shade500,
+                          Colors.blueAccent.shade700,
+                          Colors.lightBlue.shade500,
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    Text('Humidity'),
+                  ],
+                )
+              ],
+            ),
             Container(
               height: MediaQuery.of(context).size.height * 0.4,
+              margin: const EdgeInsets.only(top: 25),
               child: GridView(
                 primary: false,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   childAspectRatio: 3 / 2,
-                  // crossAxisSpacing: ,
-                  // mainAxisSpacing: 1,
                 ),
                 children: [
-                  gridItem('images/bulb.png', 'bulb'),
-                  gridItem('images/fan.png', 'fan'),
-                  gridItem('images/ac.png', 'ac'),
+                  InkWell(
+                    onTap: () {
+                      lights == 1 ? lights = 0 : lights = 1;
+                      databaseReference
+                          .child('bedroom')
+                          .update({'lights': lights});
+                      setState(() {
+                        lights = lights;
+                      });
+                    },
+                    child: lights == 1
+                        ? gridItem(
+                            'images/bulb.png', 'bulb', 'ON', Colors.green)
+                        : gridItem(
+                            'images/bulb.png', 'bulb', 'OFF', Colors.red),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      fan == 1 ? fan = 0 : fan = 1;
+                      databaseReference.child('bedroom').update({'fan': fan});
+                      setState(() {
+                        fan = fan;
+                      });
+                    },
+                    child: fan == 1
+                        ? gridItem('images/fan.png', 'fan', 'ON', Colors.green)
+                        : gridItem('images/fan.png', 'fan', 'OFF', Colors.red),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      ac == 1 ? ac = 0 : ac = 1;
+                      databaseReference.child('bedroom').update({'ac': ac});
+                      setState(() {
+                        ac = ac;
+                      });
+                    },
+                    child: ac == 1
+                        ? gridItem('images/ac.png', 'ac', 'ON', Colors.green)
+                        : gridItem('images/ac.png', 'ac', 'OFF', Colors.red),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      tv == 1 ? tv = 0 : tv = 1;
+                      databaseReference.child('bedroom').update({'tv': tv});
+                      setState(() {
+                        tv = tv;
+                      });
+                    },
+                    child: tv == 1
+                        ? gridItem('images/tv.png', 'tv', 'ON', Colors.green)
+                        : gridItem('images/tv.png', 'tv', 'OFF', Colors.red),
+                  ),
                 ],
               ),
             ),
-            CircularPercentIndicator(
-              animation: true,
-              animationDuration: 1000,
-              radius: 80.0,
-              lineWidth: 5.0,
-              percent: 0.25,
-              center: new Text("25C"),
-              progressColor: Colors.red,
-            ),
-            Text('Temperature'),
             SizedBox(
-              height: 20,
+              height: MediaQuery.of(context).size.height * 0.03,
             ),
-            CircularPercentIndicator(
-              animation: true,
-              animationDuration: 1000,
-              radius: 80.0,
-              lineWidth: 5.0,
-              percent: val.toDouble() / 100,
-              center: new Text("$val%"),
-              progressColor: Colors.red,
-            ),
-            Text('Humidity'),
           ],
         ),
       ),
     );
   }
 
-  Widget gridItem(String imgUrl, String itemName) {
-    return Container(
-      margin: const EdgeInsets.all(8),
-      decoration: BoxDecoration(
-        //color: Colors.blueGrey,
+  Widget gridItem(String imgUrl, String itemName, btnState, Color color) {
+    return Card(
+      elevation: 6,
+      shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: Colors.black26),
       ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-            margin: const EdgeInsets.all(5),
-            alignment: Alignment.center,
-            child: Image(
-              fit: BoxFit.cover,
-              image: AssetImage(imgUrl),
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(color: color, width: 2),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              margin: const EdgeInsets.all(5),
+              alignment: Alignment.center,
+              child: Image(
+                height: 55,
+                fit: BoxFit.cover,
+                image: AssetImage(imgUrl),
+              ),
             ),
-          ),
-          Text(
-            'ON',
-            style: TextStyle(
-                fontSize: 16, fontWeight: FontWeight.w600, color: Colors.green),
-          ),
-        ],
+            Text(
+              btnState,
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+                color: color,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
