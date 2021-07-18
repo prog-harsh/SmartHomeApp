@@ -31,12 +31,12 @@ class HomePage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Home',
+                        'Smart Home',
                         style: TextStyle(
                             fontSize: 25, fontWeight: FontWeight.w600),
                       ),
                       Text(
-                        'All Devices Work',
+                        'Here All Devices Work Smartly.',
                         style: TextStyle(fontSize: 16),
                       ),
                     ],
@@ -141,12 +141,12 @@ class HomePage extends StatelessWidget {
         width: MediaQuery.of(context).size.width * 0.75,
         child: Card(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(35),
+            borderRadius: BorderRadius.circular(15),
           ),
           elevation: 8,
           child: Stack(fit: StackFit.expand, children: [
             ClipRRect(
-              borderRadius: BorderRadius.circular(35),
+              borderRadius: BorderRadius.circular(15),
               child: Image(
                 image: imgUrl,
                 fit: BoxFit.cover,
@@ -154,7 +154,7 @@ class HomePage extends StatelessWidget {
             ),
             Container(
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(35),
+                borderRadius: BorderRadius.circular(15),
                 color: Colors.black45,
               ),
               alignment: Alignment.center,
