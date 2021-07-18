@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -59,11 +60,14 @@ class _BedRoomScreenState extends State<BedRoomScreen> {
                     CircularPercentIndicator(
                       animation: true,
                       animationDuration: 1000,
-                      radius: 89.0,
+                      radius: 100.0,
                       lineWidth: 9.0,
-                      curve: Curves.slowMiddle,
+                      curve: Curves.linear,
+                      widgetIndicator: Icon(Icons.circle,color: Colors.blue,),
                       percent: temp.toDouble() / 100,
-                      center: new Text("$temp°C"),
+                      center: new Text("$temp°C",style: TextStyle(fontWeight: FontWeight.bold,
+                      fontSize: 20
+                      ),),
                       linearGradient: LinearGradient(
                         begin: Alignment.topCenter,
                         colors: [
@@ -77,7 +81,10 @@ class _BedRoomScreenState extends State<BedRoomScreen> {
                     SizedBox(
                       height: 15,
                     ),
-                    Text('Temperature'),
+                    Text('Temperature',style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        letterSpacing: 0.5,
+                        fontSize: 15.0)),
                   ],
                 ),
                 Column(
@@ -85,11 +92,12 @@ class _BedRoomScreenState extends State<BedRoomScreen> {
                     CircularPercentIndicator(
                       animation: true,
                       animationDuration: 1000,
-                      radius: 85.0,
-                      lineWidth: 8.0,
-                      curve: Curves.slowMiddle,
+                      radius: 100.0,
+                      lineWidth: 10.0,
+                      widgetIndicator: Icon(Icons.circle,color: Colors.blue,),
+                      curve: Curves.linear,
                       percent: hum.toDouble() / 100,
-                      center: new Text("$hum%"),
+                      center: new Text("$hum%",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
                       linearGradient: LinearGradient(
                         begin: Alignment.topCenter,
                         colors: [
@@ -103,7 +111,11 @@ class _BedRoomScreenState extends State<BedRoomScreen> {
                     SizedBox(
                       height: 15,
                     ),
-                    Text('Humidity'),
+                    Text('Humidity',style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        letterSpacing: 0.5,
+                        fontSize: 15.0),
+                    ),
                   ],
                 )
               ],
@@ -132,7 +144,7 @@ class _BedRoomScreenState extends State<BedRoomScreen> {
                         ? gridItem(
                             'images/bulb.png', 'bulb', 'ON', Colors.green)
                         : gridItem(
-                            'images/bulb.png', 'bulb', 'OFF', Colors.red),
+                            'images/bulb.png', 'bulb', 'OFF', Colors.blue),
                   ),
                   InkWell(
                     onTap: () {
@@ -144,7 +156,7 @@ class _BedRoomScreenState extends State<BedRoomScreen> {
                     },
                     child: fan == 1
                         ? gridItem('images/fan.png', 'fan', 'ON', Colors.green)
-                        : gridItem('images/fan.png', 'fan', 'OFF', Colors.red),
+                        : gridItem('images/fan.png', 'fan', 'OFF', Colors.blue),
                   ),
                   InkWell(
                     onTap: () {
@@ -156,7 +168,7 @@ class _BedRoomScreenState extends State<BedRoomScreen> {
                     },
                     child: ac == 1
                         ? gridItem('images/ac.png', 'ac', 'ON', Colors.green)
-                        : gridItem('images/ac.png', 'ac', 'OFF', Colors.red),
+                        : gridItem('images/ac.png', 'ac', 'OFF', Colors.blue),
                   ),
                   InkWell(
                     onTap: () {
@@ -168,7 +180,7 @@ class _BedRoomScreenState extends State<BedRoomScreen> {
                     },
                     child: tv == 1
                         ? gridItem('images/tv.png', 'tv', 'ON', Colors.green)
-                        : gridItem('images/tv.png', 'tv', 'OFF', Colors.red),
+                        : gridItem('images/tv.png', 'tv', 'OFF', Colors.blue),
                   ),
                 ],
               ),
@@ -186,11 +198,11 @@ class _BedRoomScreenState extends State<BedRoomScreen> {
     return Card(
       elevation: 6,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(15),
       ),
       child: Container(
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(15),
           border: Border.all(color: color, width: 2),
         ),
         child: Column(
