@@ -26,7 +26,7 @@ class HomePage extends StatelessWidget {
               children: [
                 Container(
                   alignment: Alignment.centerLeft,
-                  margin: const EdgeInsets.only(top: 20, left: 25),
+                  margin: const EdgeInsets.only(left: 25),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -42,11 +42,7 @@ class HomePage extends StatelessWidget {
                     ],
                   ),
                 ),
-                // SizedBox(
-                //   height: MediaQuery.of(context).size.height * 0.01,
-                // ),
                 Container(
-                  margin: const EdgeInsets.only(top: 20),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
@@ -93,9 +89,7 @@ class HomePage extends StatelessWidget {
                     ],
                   ),
                 ),
-
                 Container(
-                  margin: const EdgeInsets.only(top: 20),
                   height: MediaQuery.of(context).size.height * 0.55,
                   child: ListView(
                     physics: BouncingScrollPhysics(
@@ -110,12 +104,13 @@ class HomePage extends StatelessWidget {
                     ],
                   ),
                 ),
-
                 Container(
-                  margin: const EdgeInsets.only(top: 15),
                   child: ElevatedButton(
                     onPressed: () {},
-                    child: Text('SHOW REALTIME DATA'),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 13),
+                      child: Text('SHOW REALTIME DATA'),
+                    ),
                   ),
                 )
               ],
