@@ -36,7 +36,10 @@ class _BedRoomScreenState extends State<BedRoomScreen> {
     return Scaffold(
       appBar: AppBar(
         leadingWidth: 30,
-        title: Text('Bedroom',style: TextStyle(fontWeight: FontWeight.bold),),
+        title: Text(
+          'Bedroom',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
       ),
       body: SafeArea(
         child: Column(
@@ -63,11 +66,16 @@ class _BedRoomScreenState extends State<BedRoomScreen> {
                       radius: 100.0,
                       lineWidth: 9.0,
                       curve: Curves.linear,
-                      widgetIndicator: Icon(Icons.circle,color: Colors.blue,),
+                      widgetIndicator: Icon(
+                        Icons.circle,
+                        color: Colors.blue,
+                      ),
                       percent: temp.toDouble() / 100,
-                      center: new Text("$temp°C",style: TextStyle(fontWeight: FontWeight.bold,
-                      fontSize: 20
-                      ),),
+                      center: new Text(
+                        "$temp°C",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 20),
+                      ),
                       linearGradient: LinearGradient(
                         begin: Alignment.topCenter,
                         colors: [
@@ -81,10 +89,11 @@ class _BedRoomScreenState extends State<BedRoomScreen> {
                     SizedBox(
                       height: 15,
                     ),
-                    Text('Temperature',style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        letterSpacing: 0.5,
-                        fontSize: 15.0)),
+                    Text('Temperature',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            letterSpacing: 0.5,
+                            fontSize: 15.0)),
                   ],
                 ),
                 Column(
@@ -94,10 +103,17 @@ class _BedRoomScreenState extends State<BedRoomScreen> {
                       animationDuration: 1000,
                       radius: 100.0,
                       lineWidth: 10.0,
-                      widgetIndicator: Icon(Icons.circle,color: Colors.blue,),
+                      widgetIndicator: Icon(
+                        Icons.circle,
+                        color: Colors.blue,
+                      ),
                       curve: Curves.linear,
                       percent: hum.toDouble() / 100,
-                      center: new Text("$hum%",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
+                      center: new Text(
+                        "$hum%",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 20),
+                      ),
                       linearGradient: LinearGradient(
                         begin: Alignment.topCenter,
                         colors: [
@@ -111,10 +127,12 @@ class _BedRoomScreenState extends State<BedRoomScreen> {
                     SizedBox(
                       height: 15,
                     ),
-                    Text('Humidity',style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        letterSpacing: 0.5,
-                        fontSize: 15.0),
+                    Text(
+                      'Humidity',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: 0.5,
+                          fontSize: 15.0),
                     ),
                   ],
                 )
@@ -196,7 +214,8 @@ class _BedRoomScreenState extends State<BedRoomScreen> {
 
   Widget gridItem(String imgUrl, String itemName, btnState, Color color) {
     return Card(
-      elevation: 6,
+      shadowColor: btnState == 'ON' ? Colors.green : null,
+      elevation: btnState == 'ON' ? 12 : 4,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(15),
       ),
