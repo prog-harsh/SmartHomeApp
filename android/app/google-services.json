@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "12795223201",
+    "firebase_url": "https://smart-home-14f46-default-rtdb.firebaseio.com",
     "project_id": "smart-home-14f46",
     "storage_bucket": "smart-home-14f46.appspot.com"
   },
@@ -13,6 +14,14 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "12795223201-gv6783q36n59svcl9kmudulge9gbohve.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.harsh.smarthomeappliances.myhome",
+            "certificate_hash": "a7e37f7981fa654a3f6036b6fa941b435c36e014"
+          }
+        },
         {
           "client_id": "12795223201-f94tnrdhqevftub34g0i4jf82sds34e7.apps.googleusercontent.com",
           "client_type": 3
