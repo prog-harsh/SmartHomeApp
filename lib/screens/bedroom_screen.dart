@@ -12,20 +12,20 @@ class BedRoomScreen extends StatefulWidget {
 
 class _BedRoomScreenState extends State<BedRoomScreen> {
   var hum = 0, temp = 0, ac, fan, lights, tv;
-  late DatabaseReference databaseReference;
+  late DatabaseReference _databaseReference;
   void initState() {
     super.initState();
-    databaseReference = FirebaseDatabase.instance.reference();
-    databaseReference.child('bedroom').onValue.listen((event) {
-      var snap = event.snapshot;
+    _databaseReference = FirebaseDatabase.instance.reference();
+    _databaseReference.child('bedroom').onValue.listen((event) {
+      var _snap = event.snapshot;
       if (mounted) {
         setState(() {
-          temp = snap.value['temperature'];
-          hum = snap.value['humidity'];
-          ac = snap.value['ac'];
-          fan = snap.value['fan'];
-          lights = snap.value['lights'];
-          tv = snap.value['tv'];
+          temp = _snap.value['temperature'];
+          hum = _snap.value['humidity'];
+          ac = _snap.value['ac'];
+          fan = _snap.value['fan'];
+          lights = _snap.value['lights'];
+          tv = _snap.value['tv'];
         });
       }
     });
@@ -151,7 +151,7 @@ class _BedRoomScreenState extends State<BedRoomScreen> {
                   InkWell(
                     onTap: () {
                       lights == 1 ? lights = 0 : lights = 1;
-                      databaseReference
+                      _databaseReference
                           .child('bedroom')
                           .update({'lights': lights});
                       setState(() {
@@ -167,7 +167,7 @@ class _BedRoomScreenState extends State<BedRoomScreen> {
                   InkWell(
                     onTap: () {
                       fan == 1 ? fan = 0 : fan = 1;
-                      databaseReference.child('bedroom').update({'fan': fan});
+                      _databaseReference.child('bedroom').update({'fan': fan});
                       setState(() {
                         fan = fan;
                       });
@@ -179,7 +179,7 @@ class _BedRoomScreenState extends State<BedRoomScreen> {
                   InkWell(
                     onTap: () {
                       ac == 1 ? ac = 0 : ac = 1;
-                      databaseReference.child('bedroom').update({'ac': ac});
+                      _databaseReference.child('bedroom').update({'ac': ac});
                       setState(() {
                         ac = ac;
                       });
@@ -191,7 +191,7 @@ class _BedRoomScreenState extends State<BedRoomScreen> {
                   InkWell(
                     onTap: () {
                       tv == 1 ? tv = 0 : tv = 1;
-                      databaseReference.child('bedroom').update({'tv': tv});
+                      _databaseReference.child('bedroom').update({'tv': tv});
                       setState(() {
                         tv = tv;
                       });
