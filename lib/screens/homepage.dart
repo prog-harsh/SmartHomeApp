@@ -1,8 +1,24 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:myhome/main_drawer.dart';
 
-class HomePage extends StatelessWidget {
-  void selectRoom(BuildContext ctx, String room) {
-    Navigator.pushNamed(ctx, 'room-screen', arguments: {'room': room});
+class HomePage extends StatefulWidget {
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  String _userName = '';
+  late DatabaseReference _databaseReference;
+  @override
+  void initState() {
+    _databaseReference = FirebaseDatabase.instance.reference();
+    _databaseReference.child('userDetails').once().then((value) {
+      setState(() {
+        _userName = value.value['username'];
+      });
+    });
+    super.initState();
   }
 
   @override
@@ -13,6 +29,14 @@ class HomePage extends StatelessWidget {
     ImageProvider bathroom = AssetImage('images/bathroom.jpg');
     return Scaffold(
         backgroundColor: Color.fromRGBO(249, 249, 245, 1),
+        appBar: AppBar(
+          leadingWidth: 35,
+          title: Text(
+            'Home',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+        ),
+        drawer: MainDrawer(),
         body: Container(
           decoration: BoxDecoration(
             image: DecorationImage(
@@ -31,7 +55,7 @@ class HomePage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Smart Home',
+                        'Hello, ${_userName.toString().split(' ')[0]}',
                         style: TextStyle(
                             fontSize: 25, fontWeight: FontWeight.w600),
                       ),
