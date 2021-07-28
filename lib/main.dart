@@ -1,4 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:myhome/screens/login_screen.dart';
 import 'screens/homepage.dart';
 import 'screens/bedroom_screen.dart';
 import 'screens/bathroom_screen.dart';
@@ -21,12 +24,44 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         fontFamily: 'Ubuntu',
       ),
+      home: ScreenInitializer(),
       routes: {
-        '/': (ctx) => HomePage(),
+        'home-page': (ctx) => HomePage(),
+        'login-screen': (ctx) => LoginScreen(),
         'bedroom-screen': (ctx) => BedRoomScreen(),
         'bathroom-screen': (ctx) => BathRoomScreen(),
         'livingroom-screen': (ctx) => LivingRoomScreen(),
       },
     );
+  }
+}
+
+class ScreenInitializer extends StatefulWidget {
+  @override
+  _ScreenInitializerState createState() => _ScreenInitializerState();
+}
+
+class _ScreenInitializerState extends State<ScreenInitializer> {
+  late FirebaseAuth _auth;
+  late User? _user;
+  var isloading = true;
+  @override
+  void initState() {
+    super.initState();
+    _auth = FirebaseAuth.instance;
+    _user = _auth.currentUser;
+    keepSynced();
+  }
+
+  void keepSynced() async {
+    FirebaseDatabase database;
+    database = FirebaseDatabase.instance;
+    await database.setPersistenceEnabled(true);
+    await database.setPersistenceCacheSizeBytes(10000000);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return _user == null ? LoginScreen() : HomePage();
   }
 }
