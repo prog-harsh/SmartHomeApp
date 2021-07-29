@@ -9,6 +9,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   String _userName = '';
+  var isConnected;
   late DatabaseReference _databaseReference;
   @override
   void initState() {
@@ -17,12 +18,43 @@ class _HomePageState extends State<HomePage> {
       setState(() {
         _userName = value.value['username'];
       });
+      _databaseReference.child('isConnected').onValue.listen((event) {
+        var _snap = event.snapshot;
+        if (mounted) {
+          setState(() {
+            isConnected = _snap.value;
+            showSnackBar();
+          });
+        }
+      });
     });
     super.initState();
   }
 
+  void showSnackBar() {
+    if (isConnected == 0) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          elevation: 10,
+          duration: Duration(seconds: 8),
+          backgroundColor: Colors.red,
+          padding: const EdgeInsets.all(8),
+          content: Text(
+            'Devices is not Connected',
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    print('hrl');
+    ImageProvider drawerImage = AssetImage('images/drawer.jpg');
     ImageProvider background = AssetImage('images/home2.jpg');
     ImageProvider bedroom = AssetImage('images/bed.jpg');
     ImageProvider livingroom = AssetImage('images/living.jpg');
@@ -36,7 +68,7 @@ class _HomePageState extends State<HomePage> {
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
         ),
-        drawer: MainDrawer(),
+        drawer: MainDrawer(drawerImage, _userName),
         body: Container(
           decoration: BoxDecoration(
             image: DecorationImage(
@@ -51,18 +83,34 @@ class _HomePageState extends State<HomePage> {
                 Container(
                   alignment: Alignment.centerLeft,
                   margin: const EdgeInsets.only(left: 25),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        'Hello, ${_userName.toString().split(' ')[0]}',
-                        style: TextStyle(
-                            fontSize: 25, fontWeight: FontWeight.w600),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Hello, ${_userName.toString().split(' ')[0]}',
+                            style: TextStyle(
+                                fontSize: 25, fontWeight: FontWeight.w600),
+                          ),
+                          Text(
+                            'Here All Devices Work Smartly.',
+                            style: TextStyle(fontSize: 16),
+                          ),
+                        ],
                       ),
-                      Text(
-                        'Here All Devices Work Smartly.',
-                        style: TextStyle(fontSize: 16),
-                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: Tooltip(
+                          message: 'Show Status of Device',
+                          child: Icon(
+                            Icons.circle,
+                            color: isConnected == 0 ? Colors.red : Colors.green,
+                            size: 19,
+                          ),
+                        ),
+                      )
                     ],
                   ),
                 ),
@@ -150,9 +198,9 @@ class _HomePageState extends State<HomePage> {
         if (roomName == 'BEDROOM') {
           Navigator.pushNamed(context, 'bedroom-screen');
         } else if (roomName == 'BATHROOM') {
-          Navigator.pushNamed(context, 'bathroom-screen');
+          Navigator.pushNamed(context, 'bedroom-screen');
         } else if (roomName == 'LIVING ROOM') {
-          Navigator.pushNamed(context, 'livingroom-screen');
+          Navigator.pushNamed(context, 'bedroom-screen');
         }
       },
       child: Container(
