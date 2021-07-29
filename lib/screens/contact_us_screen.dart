@@ -41,9 +41,9 @@ class ContactUsScreen extends StatelessWidget {
                     buildContainer(
                       context,
                       'Harshil Gupta',
-                      '',
-                      '',
-                      '',
+                      'LEAD DEVELOPER',
+                      '+91 844-5603-664',
+                      'harshilgupta0099@gmail.com',
                     ),
                   ],
                 ),
