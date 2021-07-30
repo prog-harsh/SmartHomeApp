@@ -9,7 +9,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   String _userName = '';
-  var isConnected;
+  var isConnected = 0;
   late DatabaseReference _databaseReference;
   @override
   void initState() {
@@ -31,29 +31,34 @@ class _HomePageState extends State<HomePage> {
     super.initState();
   }
 
-  void showSnackBar() {
-    if (isConnected == 0) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          elevation: 10,
-          duration: Duration(seconds: 8),
-          backgroundColor: Colors.red,
-          padding: const EdgeInsets.all(8),
-          content: Text(
-            'Devices is not Connected',
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.w700,
-            ),
+  buildSnackBar(message, color) {
+    return ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        elevation: 10,
+        duration: Duration(seconds: 8),
+        backgroundColor: color,
+        padding: const EdgeInsets.all(8),
+        content: Text(
+          message,
+          style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.w700,
           ),
         ),
-      );
+      ),
+    );
+  }
+
+  void showSnackBar() {
+    if (isConnected == 0) {
+      buildSnackBar('You are not connected to the Devices', Colors.red);
+    } else if (isConnected == 1) {
+      buildSnackBar('You are connected to the Devices', Colors.green);
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    print('hrl');
     ImageProvider drawerImage = AssetImage('images/drawer.jpg');
     ImageProvider background = AssetImage('images/home2.jpg');
     ImageProvider bedroom = AssetImage('images/bed.jpg');
