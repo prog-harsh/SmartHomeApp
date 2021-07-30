@@ -5,6 +5,8 @@ class ContactUsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ImageProvider _harsh = AssetImage('images/harsh.jpg');
+    ImageProvider _harshil = AssetImage('images/harshil.jpg');
     return Container(
       child: Scaffold(
         body: Container(
@@ -37,6 +39,7 @@ class ContactUsScreen extends StatelessWidget {
                       'APP DEVELOPER',
                       '+91 952-0423-518',
                       'harshtripathi9520@gmail.com',
+                      _harsh,
                     ),
                     buildContainer(
                       context,
@@ -44,6 +47,7 @@ class ContactUsScreen extends StatelessWidget {
                       'LEAD DEVELOPER',
                       '+91 844-5603-664',
                       'harshilgupta0099@gmail.com',
+                      _harshil,
                     ),
                   ],
                 ),
@@ -56,7 +60,7 @@ class ContactUsScreen extends StatelessWidget {
   }
 }
 
-buildContainer(context, name, role, phone, mail) {
+buildContainer(context, name, role, phone, mail, image) {
   return Card(
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(20),
@@ -69,13 +73,9 @@ buildContainer(context, name, role, phone, mail) {
         color: Colors.blue.shade100,
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
           CircleAvatar(
-            radius: 50.0,
+            radius: 55.0,
             backgroundColor: Colors.blue[800],
-            child: Icon(
-              Icons.person,
-              color: Colors.white,
-              size: 60,
-            ),
+            backgroundImage: image,
             //backgroundImage: AssetImage('images/dev.jpg'),
           ),
           SizedBox(
@@ -134,7 +134,7 @@ buildContainer(context, name, role, phone, mail) {
             ),
           ),
           Container(
-            width: MediaQuery.of(context).size.width * .88,
+            width: MediaQuery.of(context).size.width * 0.88,
             child: Card(
               elevation: 8.0,
               color: Colors.white,
@@ -150,10 +150,18 @@ buildContainer(context, name, role, phone, mail) {
                     SizedBox(
                       width: 10.0,
                     ),
-                    Text(
-                      mail,
-                      style: TextStyle(
-                          color: Colors.blue, fontWeight: FontWeight.bold),
+                    Expanded(
+                      child: Container(
+                        width: MediaQuery.of(context).size.width * 0.39,
+                        child: FittedBox(
+                          child: Text(
+                            mail,
+                            style: TextStyle(
+                                color: Colors.blue,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ),
                     ),
                   ],
                 ),
